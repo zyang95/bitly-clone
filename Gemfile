@@ -30,8 +30,9 @@ group :development, :test do
 end
 
 group :production do
-	# Heroku
+	# Bluemix Dependency
 	# ==================
-	gem 'rails_12factor' # Heroku Gem Supports	
-	gem 'puma' # Using puma for  
+	gem "cf-autoconfig"	# Add Bluemix auto configration support
+	gem 'rails_12factor' # Heroku Gem Supports
+	gem 'puma' # Using puma for Hosting
 end
