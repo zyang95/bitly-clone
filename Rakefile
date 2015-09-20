@@ -94,6 +94,44 @@ namespace :generate do
 			EOF
 		end
 	end
+
+	desc "Create Bluemix manifest file"
+	task :bluemix_manifest do
+
+		unless ENV.has_key?('OPTION') && ENV.has_key?('NAME')
+			raise "Must specify options and name. E.g., rake generate:bluemix_manifest OPTION=bluemix_custom NAME='bluemix_app_name'"
+		end
+
+		name			= ENV['NAME'].camelize
+		host			= name.parameterize
+		filename	= "manifest.yml"
+		path			= APP_ROOT.join(filename)
+
+		case ENV['OPTION'].downcase
+		when 'free'
+			disk_quota = "1024M"
+			domain = "eu-gb.mybluemix.net"
+			instances = "1"
+			memory = "256M"
+		end
+
+		puts "Creating #{path}"
+		File.open(path, 'w+') do |f|
+			f.write(<<-EOF.strip_heredoc)
+				applications:
+				- disk_quota: #{disk_quota}
+				  host: #{host}
+				  name: #{name}
+				  path: .
+				  domain: #{domain}
+				  instances: #{instances}
+				  memory: #{memory}
+				  services:
+				    - Ruby Test App
+			EOF
+		end
+	end
+
 end
 
 namespace :db do
@@ -193,5 +231,10 @@ Database
 
 # to view current migration version
 	$ rake db:version
+
+Production
+-----------------
+# to create Bluemix manifest file
+	$ rake generate:bluemix_manifest OPTION=<type> NAME='<bluemix app name>'
 "
 end
