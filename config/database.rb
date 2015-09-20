@@ -21,9 +21,13 @@ end
 # the first time it sees "Person" and will only throw an exception if
 # that file doesn't define the Person class.
 
-# Heroku controls what database we connect to by setting the DATABASE_URL environment variable
-# We need to respect that if we want our Sinatra apps to run on Heroku without modification
-db = URI.parse(ENV['DATABASE_URL']['elephantsql']['uri'] || "postgres://localhost/#{APP_NAME}_#{Sinatra::Application.environment}")
+# Bluemix controls what database we connect to by setting the DATABASE_URL environment variable
+# We need to respect that if we want our Sinatra apps to run on Bluemix without much modification
+if ENV['DATABASE_URL'] && ENV['DATABASE_URL']['elephantsql'] && ENV['DATABASE_URL']['elephantsql']['uri']
+	db = URI.parse(ENV['DATABASE_URL']['elephantsql']['uri'])
+else
+	db = URI.parse("postgres://localhost/#{APP_NAME}_#{Sinatra::Application.environment}")
+end
 
 DB_NAME = db.path[1..-1]
 
