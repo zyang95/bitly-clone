@@ -98,11 +98,11 @@ namespace :generate do
 	desc "Create Bluemix manifest file"
 	task :bluemix_manifest do
 
-		unless ENV.has_key?('OPTION') && ENV.has_key?('NAME')
-			raise "Must specify options and name. E.g., rake generate:bluemix_manifest OPTION=bluemix_custom NAME='bluemix_app_name'"
+		unless ENV.has_key?('OPTION')
+			raise "Must specify options and name. E.g., rake generate:bluemix_manifest OPTION=bluemix_custom"
 		end
 
-		name			= ENV['NAME'].camelize
+		name			= APP_NAME.camelize
 		host			= name.parameterize
 		filename	= "manifest.yml"
 		path			= APP_ROOT.join(filename)
@@ -113,6 +113,12 @@ namespace :generate do
 			domain = "eu-gb.mybluemix.net"
 			instances = "1"
 			memory = "256M"
+		else
+			raise <<-EOF.strip_heredoc
+			Invalid Option.
+			Available Option:
+			1) 'free'
+			EOF
 		end
 
 		puts "Creating #{path}"
@@ -127,7 +133,7 @@ namespace :generate do
 				  instances: #{instances}
 				  memory: #{memory}
 				  services:
-				    - Ruby Test App
+				    - #{name}
 			EOF
 		end
 	end
