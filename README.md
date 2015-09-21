@@ -270,7 +270,33 @@ $ bundle exec rake generate:bluemix_manifest OPTION=<option_availble>
 $ bundle exec rake generate:bluemix_manifest OPTION="free"
 ```
 <br>
-6) Push to Bluemix Server
+6) Read and Export the DATABASE_URL environment variables
+```
+$ cf env <app_name>
+# Take note of the URI which gives the postgres URI. That is your DATABASE_URL.
+$ cf set-env <app_name> DATABASE_URL <database_url>
+
+# E.g:
+$ cf env sinatra-web-server
+Getting env variables for app sinatra-web-server in org user@email.com / space dev as user@email.com...
+OK
+
+System-Provided:
+{
+ "VCAP_SERVICES": {
+  "elephantsql": [
+   {
+    "credentials": {
+     "max_conns": "5",
+     "uri": "postgres://npljhvnk:fD6HbSpWIm-KUXUYVGdOsjMyz3UFc0p3@qdjjtnkv.db.elephantsql.com:5432/npljhvnk"
+    },
+    ...
+}
+
+$ cf set-env sinatra-web-server DATABASE_URL postgres://npljhvnk:fD6HbSpWIm-KUXUYVGdOsjMyz3UFc0p3@qdjjtnkv.db.elephantsql.com:5432/npljhvnk
+```
+<br>
+7) Push to Bluemix Server
 ```
 $ cf push <app_name>
 # E.g.:
