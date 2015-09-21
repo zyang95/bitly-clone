@@ -1,10 +1,10 @@
 applications:
 - disk_quota: 1024M
-  host: ruby-test-app
-  name: ruby-test-app
+  host: sinatra-web-server
+  name: sinatra-web-server
   path: .
   domain: eu-gb.mybluemix.net
   instances: 1
   memory: 256M
   services:
-    - ElephantSQL-7q
+    - sinatra-web-server
