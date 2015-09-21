@@ -102,7 +102,7 @@ namespace :generate do
 			raise "Must specify options and name. E.g., rake generate:bluemix_manifest OPTION=bluemix_custom"
 		end
 
-		name			= APP_NAME.camelize
+		name			= APP_NAME
 		host			= name.parameterize
 		filename	= "manifest.yml"
 		path			= APP_ROOT.join(filename)
