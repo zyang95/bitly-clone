@@ -3,7 +3,7 @@
 | Details   |  | 
 | :--------------- | -------: |
 | Re-created by: | Holloway, Chew Kean Ho |
-| Version:    | 0.0.4   |
+| Version:    | 0.0.5   |
 | Contribution:    | Hobby. Best effort basis.   |
 <br><br>
 ## Purpose
@@ -11,20 +11,20 @@ This Ruby Sinatra web skeleton was re-furbished for rapid prototyping a web API 
 <br><br>
 ##Supports
 1. Local Support
-2. Heroku Support - using PUMA
+2. Bluemix Support - using PUMA
 
 >**NOTE**:
->This guide assumes you are good with Ruby, Heroku and understands MVC architecture patterns.
+>This guide assumes you are good with Ruby, Heroku, Bluemix and understands MVC architecture patterns.
 
 <br><br>
 ## Common Setup
 1) Perform a git clone to this repo using the following link:
 ```
 # http
-https://github.com/hollowaykeanho/sinatra-web-server.git
+$ git clone -b bluemix https://github.com/hollowaykeanho/sinatra-web-server.git
 
 # ssh
-git@github.com:hollowaykeanho/sinatra-web-server.git
+$ git clone -b bluemix git@github.com:hollowaykeanho/sinatra-web-server.git
 ```
 2)  Rename the skeleton if needed
 ```
@@ -44,7 +44,7 @@ $ rake server
 <br><br>
 
 ## How To Use
-The skeleton is primarily based on Rails file structure with focus towards MVC architectural pattern. However, unlike Rails, this skeleton is to provide more structural freedom for you to prototype or to bootstrap and idea quickly. The flexibility is up to deploying the app in Heroku.
+The skeleton is primarily based on Rails file structure with focus towards MVC architectural pattern. However, unlike Rails, this skeleton is to provide more structural freedom for you to prototype or to bootstrap and idea quickly. The flexibility is up to deploying the app in Bluemix.
 <br>
 ### To Launch the Server
 Rakefile has a simplified command for launching the server in development mode. To perform, execute:
@@ -233,49 +233,59 @@ $ rake db:version
 ```
 <br><br>
 
-### To Push to Heroku
+### Push to Bluemix
 >**NOTE**:
->This section assumes you have Heroku Toolbelt installed inside your local computer.
+>This section assumes you have CF Toolbelt installed inside your local computer. Goto https://www.ng.bluemix.net/docs/starters/install_cli.html to begin your installation.
 
-1) Login into your Heroku 
+1) Perform API linking. If you have done this, skip to step (2). 
 ```
-$ heroku login
-```
-<br>
-2) Inside your code repo, create a Heroku app:
-```
-$ heroku create
+$ cf api https://api.ng.bluemix.net
 ```
 <br>
-3) Rename your Heroku app if needed:
+2) Login into your CF.
 ```
-$ heroku apps:rename new-name
-```
-<br>
-4) Push to heroku server
-```
-$ git push heroku master
+$ cf login -u <user_name> -o <organization_name> -s <space_name>
+# E.g.:
+$ cf login -u hollowaykeanho@gmail.com -o hollowaykeanho@gmail.com -s dev
 ```
 <br>
-5) Skip this step if you're not pushing the app for the first time. Otherwise if you're using database, create the database by:
+3) Create a database for your app.
 ```
-$ heroku run rake db:create
+$ cf create-service elephantsql turtle <service_name>
+# E.g.: (by naming service_name as my app_name for easy management)
+$ cf create-service elephantsql turtle sinatra-web-server
 ```
 <br>
-6) Perform database migration if you're using database
+4) Bind the database server.
 ```
-$ heroku run rake db:migrate
+$ cf bind-service <app_name> <service_name>
+# E.g.:
+$ cf bind-service sinatra-web-server sinatra-web-server
+```
+<br>
+5) Generate a manifest.yml file based on latest settings
+```
+$ bundle exec rake generate:bluemix_manifest OPTION=<option_availble>
+# E.g.:
+$ bundle exec rake generate:bluemix_manifest OPTION="free"
+```
+<br>
+6) Push to Bluemix Server
+```
+$ cf push <app_name>
+# E.g.:
+$ cf push sinatra-web-server
 ```
 <br><br>
 
-### Looking for more Heroku Toolbelt Commands
-Please refer to: https://devcenter.heroku.com/categories/command-line
-<br><br>
+## Important Notice
+CF only recognizes progressive development. Hence, please avoid using git amend or git rebase to alter history. Otherwise, your app will not work and requires you to delete and restart again.
 
 ## Special Thanks
 1. CodeDivision for their code bootcamp training.
 2. Josh who motivated me to re-code this framework.
 3. All friends and teams in CodeDivision.
+4. Justin for helping up enabling the Bluemix support.
 <br><br>
 
 ## References
@@ -295,3 +305,7 @@ Please refer to: https://devcenter.heroku.com/categories/command-line
 14. https://devcenter.heroku.com/articles/getting-started-with-rails3
 15. http://www.getlaura.com/how-to-enable-sessions-with-sinatra/
 16. http://stackoverflow.com/questions/5693528/how-to-use-sinatra-session
+17. https://www.ng.bluemix.net/docs/starters/install_cli.html
+18. https://docs.cloudfoundry.org/devguide/services/migrate-db.html#frequent-migration
+19. https://docs.cloudfoundry.org/buildpacks/ruby/ruby-tips.html#rake
+20. http://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html
