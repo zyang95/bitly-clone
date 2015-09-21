@@ -266,8 +266,12 @@ $ cf bind-service sinatra-web-server sinatra-web-server
 5) Generate a manifest.yml file based on latest settings
 ```
 $ bundle exec rake generate:bluemix_manifest OPTION=<option_availble>
+$ git add manifest.yml
+$ git commit -m <commit_message>
 # E.g.:
 $ bundle exec rake generate:bluemix_manifest OPTION="free"
+$ git add manifest.yml
+$ git commit -m "updated manifest.yml to current apps settings"
 ```
 <br>
 6) Read and Export the DATABASE_URL environment variables
