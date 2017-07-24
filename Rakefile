@@ -87,7 +87,7 @@ namespace :generate do
 		puts "Creating #{path}"
 		File.open(path, 'w+') do |f|
 			f.write(<<-EOF.strip_heredoc)
-				class #{name} < ActiveRecord::Migration
+				class #{name} < ActiveRecord::Migration[5.0]
 					def change
 					end
 				end
@@ -132,13 +132,13 @@ end
 
 desc 'Initiate IRB console with environment loaded'
 task "console" do
-	exec "irb -r./config/environments/init"
+	exec "irb -r ./config/environments/init"
 end
 
 
 desc 'Initiate shotgun in localhost'
 task "server" do
-	exec "bundle exec shotgun config.ru"
+	exec "shotgun config.ru"
 end
 
 
