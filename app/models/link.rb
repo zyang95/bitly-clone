@@ -1,8 +1,8 @@
 class Link < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!\\
-	validates :long_url, presence: true
-	validates :long_url, uniqueness: {case_sensitive: false, message: "was shortened before"}
-	validates :long_url, format: {with: (URI::regexp(['http', 'https'])), message: "format is not good"}
+	validates :long_link, presence: true
+	validates :long_link, uniqueness: {case_sensitive: false, message: "was shortened before"}
+	validates :long_link, format: {with: (URI::regexp(['http', 'https'])), message: "format is not good"}
 	
 	def shorten
 		newlink = []

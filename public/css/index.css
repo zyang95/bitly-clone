@@ -132,10 +132,6 @@ header nav{
 	left: -50px;
 }
 
-.panel .js-textareacopybtn{
-	display: inline;
-}
-
 .panel{
 	display: none;
 	color: black;
@@ -151,9 +147,6 @@ header nav{
 	padding: 0 15px 0 15px;
 }
 
-.table th{
-	font-weight: bold;
-}
 
 /*box*/
 #boxes{
