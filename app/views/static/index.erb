@@ -1,2 +1,75 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+
+
+
+<section id="showcase">
+	<div class= "container"> 
+		<h1>THE LINKS KNOWS ALL. SO CAN YOU.</h1>
+		<h3>Measure your links with Bitly, the world's leading link management platform.</h3>
+		<form action="/urls" method="post" onsubmit="return false;">
+			<input class="long_link" type="text" name="long_link" placeholder="Paste a link to shorten" style="font-size: 20px">
+			<input class="submit_button" type="submit" value="submit">
+		</form>
+			<p class='panel'></p>
+	</div>	
+</section>
+
+<!-- 	<div class="container">
+	<table class="table">
+		<tr>
+	    	<th>No.</th>
+	    	<th>Long URL</th> 
+	    	<th>Short Url</th>
+	    	<th>Click Count</th>
+	  	</tr>	
+	  	<tr> 
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		 </tr>
+		 <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+	    </tr>
+	    <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+	    </tr> 
+  	</table>
+	</div> -->
+	
+<section id=boxes>
+	<div class="container">
+	<!-- 	<h2>UNLEASH THE POWER OF THE LINK</h1>
+		<h3>Links are everywhere. Within every channel and every platform. Only Bitlinks are powerful enough to allow you to see clear across the internet.</h3> -->
+		<div class="box">
+			<img src="/css/github-mark.png">
+			<h3>SHORTEN</h3>
+			<h4>Shorten, brand and optimize your links across devices and channels. Share them via Bitly, API or partner integrations.<a href="#">Learn More </a></h4>
+		</div>
+		<div class="box">
+			<img src="/css/github-octocat.png">
+			<h3>MEASURE</h3>
+			<h4>Track individual link analytics, gather audience intelligence and measure campaign performance in one location.<a href="#">Learn More </a></h4>
+		</div>
+		<div class="box">
+			<img src="/css/labocat.png">
+			<h3>OPTIMIZE</h3>
+			<h4>Collect insights on your performance and optimize your marketing efforts to better fit your audience needs.<a href="#">Learn More </a></h4>
+		</div>			
+	</div>
+</section>
+
+<section class="counter">
+	<div class="container">
+		<h3>LINKS POWERED BY BITLY.</h3>
+		<h1><%= "#{@total}" %></h1>
+	</div>
+</section>
+
+<footer>
+	<p>bitly</p>
+</footer>
+
+
